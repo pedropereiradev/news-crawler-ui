@@ -25,7 +25,7 @@ Frontend responsivo que consome a API News Crawler e exibe as notícias em cards
 1. Clone o repositório
 ```bash
 git clone git@github.com:pedropereiradev/news-crawler-ui.git
-cd news-crawler/news-crawler
+cd news-crawler-ui
 ```
 
 2. Instale as dependências
