@@ -35,8 +35,15 @@ pnpm install
 
 3. Configure as variáveis de ambiente
 ```bash
-# Crie um arquivo .env.local
+# Crie um arquivo .env.development
 NEXT_PUBLIC_API_URL=http://localhost:5000
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
+```
+
+```bash
+# Crie um arquivo .env.production
+NEXT_PUBLIC_API_URL=https://sua-api.com
+NEXT_PUBLIC_BASE_URL=https://seu-site.com
 ```
 
 4. Execute o frontend
@@ -87,22 +94,6 @@ interface News {
 interface Props {
   news: News;
 }
-```
-
-## ⚙️ Configuração
-
-### Variáveis de Ambiente
-
-Development (.env.development):
-```env
-NEXT_PUBLIC_API_URL=http://localhost:5000
-NEXT_PUBLIC_BASE_URL=http://localhost:3000
-```
-
-Production (.env.production):
-```env
-NEXT_PUBLIC_API_URL=https://sua-api.com
-NEXT_PUBLIC_BASE_URL=https://seu-site.com
 ```
 
 ## 📱 Features
