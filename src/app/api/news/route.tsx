@@ -1,13 +1,22 @@
 import { News } from "@/types/news";
 import { NextResponse } from "next/server"
+import { getApiUrl } from "@/lib/api";
 
 interface APIResponse {
   news: News[];
 }
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(): Promise<Response> {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/search_news`)
+    const apiUrl = getApiUrl();
+    const response = await fetch(`${apiUrl}/search_news`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      next: { revalidate: 30 }
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -15,10 +24,9 @@ export async function GET(): Promise<Response> {
 
     const data: APIResponse = await response.json();
 
-    return NextResponse.json(data.news)
+    return NextResponse.json(data.news);
   } catch (error) {
     console.error('>>>ERROR FETCHING DATA', error);
-    // Return a proper error response instead of empty array
     return NextResponse.json(
       { error: 'Failed to fetch news' },
       { status: 500 }
