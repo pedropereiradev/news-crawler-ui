@@ -1,36 +1,156 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# News Crawler Frontend
 
-## Getting Started
+Interface web desenvolvida em Next.js para exibição de notícias coletadas via API.
 
-First, run the development server:
+## 📋 Descrição
 
+Frontend responsivo que consome a API News Crawler e exibe as notícias em cards organizados, com suporte a imagens e links diretos para as matérias originais.
+
+## 🚀 Tecnologias Utilizadas
+
+- Next.js 15
+- TypeScript
+- Tailwind CSS
+- Shadcn/ui
+- React 19
+
+## 💻 Pré-requisitos
+
+- Node.js 18 ou superior
+- pnpm (gerenciador de pacotes)
+- API News Crawler em execução
+
+## 🔧 Instalação
+
+1. Clone o repositório
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/seu-usuario/news-crawler.git
+cd news-crawler/news-crawler
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Instale as dependências
+```bash
+pnpm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Configure as variáveis de ambiente
+```bash
+# Crie um arquivo .env.local
+NEXT_PUBLIC_API_URL=http://localhost:5000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Execute o frontend
+```bash
+# Desenvolvimento
+pnpm dev
 
-## Learn More
+# Produção
+pnpm build
+pnpm start
+```
 
-To learn more about Next.js, take a look at the following resources:
+O frontend estará disponível em `http://localhost:3000`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🏗️ Estrutura do Projeto
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+news-crawler/
+├── src/
+│   ├── app/
+│   │   ├── page.tsx        # Página principal
+│   │   └── api/news/       # Rota da API
+│   ├── components/
+│   │   ├── NewsCard.tsx    # Componente de card
+│   │   └── ui/            # Componentes UI
+│   ├── types/
+│   │   └── news.ts        # Tipagens
+│   └── lib/
+│       └── api.ts         # Utilitários de API
+└── public/                # Arquivos estáticos
+```
 
-## Deploy on Vercel
+## 🎨 Componentes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### NewsCard
+Componente responsável por exibir uma notícia individual.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Propriedades:
+```typescript
+interface News {
+  id: string;
+  title: string;
+  link: string;
+  site: string;
+  img?: string;
+}
+
+interface Props {
+  news: News;
+}
+```
+
+## ⚙️ Configuração
+
+### Variáveis de Ambiente
+
+Development (.env.development):
+```env
+NEXT_PUBLIC_API_URL=http://localhost:5000
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
+```
+
+Production (.env.production):
+```env
+NEXT_PUBLIC_API_URL=https://sua-api.com
+NEXT_PUBLIC_BASE_URL=https://seu-site.com
+```
+
+## 📱 Features
+
+- Layout responsivo
+- Carregamento dinâmico de imagens
+- Fallback para imagens não disponíveis
+- Tratamento de erros
+- Loading states
+
+## ⚠️ Limitações Conhecidas
+
+- Algumas imagens podem não carregar devido a restrições de CORS
+- Não há sistema de paginação implementado
+- Não há sistema de busca ou filtros
+
+## 🚀 Melhorias Futuras (Frontend)
+
+### Funcionalidades
+- [ ] Implementar sistema de busca de notícias
+- [ ] Adicionar filtros por portal e categoria
+- [ ] Criar sistema de favoritos
+- [ ] Implementar compartilhamento de notícias
+
+### Interface
+- [ ] Criar diferentes layouts de visualização (lista, grid, etc)
+- [ ] Implementar infinite scroll
+- [ ] Adicionar animações de transição
+- [ ] Implementar temas personalizáveis
+
+### UX/UI
+- [ ] Melhorar tratamento de erros visual
+
+### SEO
+- [ ] Otimizar meta tags
+- [ ] Implementar sitemap
+- [ ] Adicionar schema markup
+- [ ] Melhorar URLs amigáveis
+- [ ] Implementar RSS feed
+
+### Analytics
+- [ ] Implementar rastreamento de eventos
+- [ ] Adicionar heatmaps
+- [ ] Criar dashboard de métricas
+- [ ] Implementar A/B testing
+- [ ] Monitorar performance real
+
+### Integração
+- [ ] Implementar autenticação de usuários
+- [ ] Adicionar integração com redes sociais
+- [ ] Adicionar suporte a diferentes idiomas
