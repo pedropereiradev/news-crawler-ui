@@ -7,9 +7,7 @@ export const dynamic = 'force-dynamic';
 export default async function Home() {
   try {
     const baseUrl = getBaseUrl();
-    const response = await fetch(`${baseUrl}/api/news`, {
-      next: { revalidate: 30 }
-    });
+    const response = await fetch(`${baseUrl}/api/news`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);

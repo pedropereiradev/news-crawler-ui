@@ -15,7 +15,6 @@ export async function GET(): Promise<Response> {
       headers: {
         'Content-Type': 'application/json',
       },
-      next: { revalidate: 30 }
     });
 
     if (!response.ok) {
