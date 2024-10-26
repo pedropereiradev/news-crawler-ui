@@ -2,27 +2,46 @@ import { NewsCard } from "@/components/NewsCard";
 import { News } from "@/types/news";
 
 export default async function Home() {
-  const response = await fetch("http://localhost:3000/api/news")
-  const data = await response.json();
-  const news: News[] = data || [];
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/news`);
 
-  if (news.length < 1) {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const news: News[] = await response.json();
+
+    if (!news || news.length === 0) {
+      return (
+        <main className="p-4">
+          <h1 className="text-2xl font-bold mb-4">News Crawler</h1>
+          <section>
+            <p>No news found</p>
+          </section>
+        </main>
+      );
+    }
+
     return (
-      <main>
+      <main className="p-4">
         <h1 className="text-2xl font-bold mb-4">News Crawler</h1>
-        <section>
-          <p>Nenhuma noticia encontrada</p>
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {news.map(report => (
+            <NewsCard key={report.id} news={report} />
+          ))}
         </section>
       </main>
-    )
+    );
+  } catch (error) {
+    console.error('Error:', error);
+    return (
+      <main className="p-4">
+        <h1 className="text-2xl font-bold mb-4">News Crawler</h1>
+        <section>
+          <p className="text-red-500">Error loading news</p>
+          {JSON.stringify(error)}
+        </section>
+      </main>
+    );
   }
-
-  return (
-    <main className="p-4">
-      <h1 className="text-2xl font-bold mb-4">News Crawler</h1>
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {news.length && news.map(report => <NewsCard key={report.id} news={report} />)}
-      </section>
-    </main>
-  );
 }
